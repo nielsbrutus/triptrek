@@ -1,6 +1,6 @@
 :root {
   --orange: #f97316;
-  --logo-height: 230px; /* wijzig naar 230px als je dat echt wilt, zie note onderaan */
+  --logo-height: 200px; /* wijzig naar 230px als je dat echt wilt, zie note onderaan */
 }
 
 * { box-sizing: border-box; }
@@ -18,3 +18,5 @@ body {
 main { min-height: calc(100vh - 60px); }
 
 h1, h2, h3 { letter-spacing: -0.015em; }
+
+body.no-scroll { overflow: hidden; }

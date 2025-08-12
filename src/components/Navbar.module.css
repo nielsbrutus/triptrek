@@ -7,113 +7,319 @@
 }
 .inner {
   height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-  max-width: 1200px; margin: 0 auto; padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
-.left { display: flex; align-items: center; gap: 12px; }
-.right { display: flex; align-items: center; gap: 28px; }
+/* minder marge op mobiel links */
+@media (max-width: 520px) {
+  .inner {
+    padding-left: 8px;
+    padding-right: 12px;
+  }
+}
 
-/* LINKS */
-.link, .dropBtn {
+/* Logo */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logoImg {
+  display: block;
+  height: var(--logo-height, 44px);
+  width: auto;
+}
+
+/* Groep rechts (links + actions blijven bij elkaar) */
+.group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Desktop links */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+/* Acties */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* FORCE gewicht voor alle nav-teksten */
+.navText {
+  font-weight: 600 !important;
+}
+
+/* Links / knoppen (typografie zoals gevraagd) */
+/* 1) Desktop: links + huur-knop (iets kleiner) */
+.link,
+.dropBtn {
   position: relative;
-  display: inline-flex; align-items: center; gap: 6px;
-  text-decoration: none; color: #111827;
-  font-weight: 600; font-size: 16px;
-  background: transparent; border: none; cursor: pointer;
-  font: inherit; /* <<< zorgt dat 'Huren' hetzelfde font gebruikt */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #111827;
+  font-weight: 600;
+  font-size: 15.5px; /* was 16.5px */
+  line-height: 1;
+  padding: 8px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
-/* Oranje slide-underline (Webshop/Contact) */
+/* Oranje slide-underline — ietsje slomer */
 .linkUnderline::after {
   content: "";
-  position: absolute; left: 0; bottom: -3px;
-  height: 2px; width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 2px;
+  width: 100%;
   background: var(--orange);
-  transform: scaleX(0); transform-origin: left;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 380ms ease;
+}
+.linkUnderline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Dropdown (desktop) */
+.dropdown {
+  position: relative;
+}
+.dropdown:hover .menu {
+  display: block;
+}
+.menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 8px 0;
+  min-width: 220px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  z-index: 150;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.menu::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+}
+.dropdown:hover .menu {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2) Dropdown items: niet meer vet (600) + iets kleiner */
+.menuItem {
+  display: block;
+  padding: 11px 14px;
+  text-decoration: none;
+  color: #111827;
+  white-space: nowrap;
+  font-weight: 600; /* was 800 */
+  font-size: 15.5px; /* was 16.5px */
+  line-height: 1;
+}
+
+.menuItem:hover {
+  background: #f3f4f6;
+}
+.menuItemDisabled {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  color: #9ca3af;
+  cursor: not-allowed;
+  user-select: none;
+  font-weight: 600; /* was 800 */
+  font-size: 15.5px; /* was 16.5px */
+  line-height: 1;
+}
+.soonBadge {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 1;
+  border-radius: 9999px;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  color: #9a3412;
+}
+
+/* Account icoon */
+.account {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1.4px solid #cbd5e1;
+  color: #374151;
+  transition: border-color 280ms ease, color 280ms ease, background 280ms ease;
+}
+.account:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(249, 115, 22, 0.06);
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-direction: column;
+  cursor: pointer;
+  transition: border-color 260ms ease, background 260ms ease;
+}
+.bar {
+  width: 18px;
+  height: 2px;
+  background: #111827;
+  transition: transform 260ms ease, opacity 220ms ease;
+}
+.hamburgerOpen .bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburgerOpen .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburgerOpen .bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.styles.legend {
+  font-weight: 800;
+}
+
+/* Sidebar drawer — LINKS */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: min(86vw, 360px);
+  background: #fff;
+  box-shadow: 8px 0 28px rgba(0, 0, 0, 0.12);
+  transform: translateX(-100%);
+  transition: transform 380ms ease;
+  z-index: 160;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 8px 16px;
+}
+.drawerOpen {
+  transform: translateX(0);
+}
+.drawerClose {
+  align-self: flex-end;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Backdrop */
+.backdrop {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.08);
+  z-index: 140;
+}
+
+/* Mobile items in drawer (typografie snippet toegepast) */
+/* 3) Mobiele sidebar: zelfde typografie */
+.mobileDrop,
+.mobileLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-top: 1px solid #f1f5f9;
+  text-decoration: none;
+  color: #111827;
+  background: #fff;
+
+  font-weight: 600;
+  font-size: 15.5px; /* was 16.5px */
+  line-height: 1;
+  font-family: inherit;
+}
+
+.mobileLink:hover,
+.mobileDrop:hover {
+  background: #f9fafb;
+}
+.mobileDrop {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+.mobileChev {
   transition: transform 260ms ease;
 }
-.linkUnderline:hover::after { transform: scaleX(1); }
-
-/* DESKTOP DROPDOWN (hover) */
-.dropdown { position: relative; }
-.dropdown:hover .menu { display: block; }
-
-.menu {
-  display: none; position: absolute; top: 100%; left: 0;
-  background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
-  padding: 8px 0; min-width: 220px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-  z-index: 150; opacity: 0; transform: translateY(-4px);
-  transition: opacity 200ms ease, transform 200ms ease;
+.mobileChevOpen {
+  transform: rotate(180deg);
 }
-.menu::before { content: ""; position: absolute; top: -8px; left: 0; width: 100%; height: 8px; }
-.dropdown:hover .menu { opacity: 1; transform: translateY(0); }
-
-.menuItem {
-  display: block; padding: 11px 14px; text-decoration: none;
-  color: #111827; white-space: nowrap; font-weight: 500;
+.mobileSub {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease;
 }
-.menuItem:hover { background: #f3f4f6; }
-
-/* DISABLED + BADGE */
-.menuItemDisabled {
-  display: flex; align-items: center; gap: 10px;
-  padding: 11px 14px; color: #9ca3af; cursor: not-allowed; user-select: none;
+.mobileSubOpen {
+  max-height: 360px;
 }
-.menuItemDisabled:hover { background: transparent; }
-.soonBadge {
-  display: inline-block; padding: 2px 6px; font-size: 11px; line-height: 1;
-  border-radius: 9999px; background: #fff7ed; border: 1px solid #fdba74; color: #9a3412;
+.mobileDisabled {
+  color: #9ca3af;
+  cursor: not-allowed;
 }
 
-/* ACCOUNT */
-.account {
-  display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center;
-  border-radius: 9999px; border: 1.6px solid #9ca3af; color: #374151;
-  transition: border-color 240ms ease, color 240ms ease, background 240ms ease;
-}
-.account:hover { border-color: var(--orange); color: var(--orange); background: rgba(249,115,22,0.06); }
-
-/* HAMBURGER */
-.hamburger {
-  display: none; width: 38px; height: 38px; border-radius: 10px;
-  border: 1.5px solid #d1d5db; background: #fff;
-  align-items: center; justify-content: center; gap: 4px; flex-direction: column;
-  cursor: pointer; transition: border-color 200ms ease, background 200ms ease;
-}
-.bar { width: 18px; height: 2px; background: #111827; transition: transform 220ms ease, opacity 180ms ease; }
-.hamburgerOpen .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.hamburgerOpen .bar:nth-child(2) { opacity: 0; }
-.hamburgerOpen .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-/* MOBILE PANEL */
-.mobilePanel {
-  display: none; position: absolute; top: 100%; left: 0; right: 0;
-  overflow: auto; max-height: 0;
-  background: #fff; border-top: 1px solid #f1f5f9; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  opacity: 0; transform: translateY(-6px);
-  transition: max-height 320ms ease, opacity 220ms ease, transform 220ms ease;
-  z-index: 140; pointer-events: none;
-}
-.mobileOpen { max-height: 70vh; opacity: 1; transform: translateY(0); pointer-events: auto; }
-
-/* MOBILE ITEMS */
-.mobileLink, .mobileDrop {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 12px 16px; border-top: 1px solid #f1f5f9; text-decoration: none; color: #111827;
-  background: #fff; font-weight: 600;
-}
-.mobileLink:hover, .mobileDrop:hover { background: #f9fafb; }
-.mobileDrop { width: 100%; border: none; cursor: pointer; font: inherit; }
-.mobileChev { transition: transform 200ms ease; }
-.mobileChevOpen { transform: rotate(180deg); }
-.mobileSub { max-height: 0; overflow: hidden; transition: max-height 260ms ease; }
-.mobileSubOpen { max-height: 350px; }
-.mobileDisabled { color: #9ca3af; cursor: not-allowed; }
-
-/* Breakpoint */
+/* Responsive: desktop links verbergen op mobiel; hamburger tonen */
 @media (max-width: 900px) {
-  .right { display: none; }
-  .hamburger { display: inline-flex; }
-  .mobilePanel { display: block; }
+  .right {
+    display: none;
+  }
+  .hamburger {
+    display: inline-flex;
+  }
 }

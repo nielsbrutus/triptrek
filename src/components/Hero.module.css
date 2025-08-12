@@ -1,0 +1,215 @@
+.hero {
+  background: linear-gradient(180deg, #eef1f6 0%, #f5f7fa 100%);
+  padding: 64px 0 56px;
+}
+
+/* zelfde container als navbar */
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Titel/ondertitel links uitgelijnd */
+.title {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.accent { color: var(--orange); font-weight: 800; }
+.subtitle {
+  font-size: clamp(15px, 2vw, 18px);
+  color: #4b5563;
+  margin: 0 0 28px;
+  max-width: 800px;
+  text-align: left;
+}
+
+/* Kaart links onder titel */
+.box {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(140%) blur(2px);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 22px 24px 24px;
+  max-width: 640px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+.boxTitle { margin: 0 0 12px; font-size: 20px; font-weight: 800; }
+
+/* Labels & help */
+.label {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+.help { margin: 6px 0 10px; font-size: 12.5px; color: #6b7280; }
+
+/* --- Segmented pills (schoonmaak/dakdragers) --- */
+.segmentWide { display: flex; gap: 10px; flex-wrap: wrap; }
+@media (min-width: 640px) {
+  .segmentWide { flex-wrap: nowrap; }  /* naast elkaar */
+}
+
+
+.optionWide {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  font-weight: 600;
+  font-size: 15.5px;
+  line-height: 1;
+  color: #111827;
+  -webkit-tap-highlight-color: transparent;
+}
+.optionWide > input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.dot {
+  width: 10px; height: 10px; border-radius: 9999px;
+  border: 2px solid #cbd5e1; background: #fff;
+  transition: border-color 220ms ease, background 220ms ease;
+}
+.optText { white-space: nowrap; }
+
+/* Checked/hover/focus */
+.optionWide:has(input:checked) {
+  border-color: var(--orange);
+  background: rgba(249, 115, 22, 0.06);
+  box-shadow: none; /* geen halo */
+}
+.optionWide:has(input:checked) .dot { border-color: var(--orange); background: var(--orange); }
+.optionWide:hover { border-color: #e5e7eb; background: #fff; }
+.optionWide:focus-within { outline: 3px solid rgba(249,115,22,0.15); outline-offset: 2px; }
+
+/* CTA */
+.button {
+  margin-top: 16px;
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 15.5px;
+  cursor: pointer;
+  background: #f97316;
+  color: #fff;
+  transition: transform 120ms ease, box-shadow 160ms ease, opacity 160ms ease;
+  box-shadow: 0 8px 18px rgba(249, 115, 22, 0.25);
+}
+.button:hover { transform: translateY(-1px); }
+.button:active { transform: translateY(0); opacity: 0.92; }
+
+/* --- Custom dropdowns (product + evt. maat) --- */
+.selectWrap { position: relative; }
+.selectBtn {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.selectBtn:focus,
+.selectBtn:focus-visible {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+}
+.selectChevron { transition: transform 160ms ease; }
+/* FIX: koppel rotatie aan de button i.p.v. de wrapper */
+.selectBtn[aria-expanded="true"] .selectChevron { transform: rotate(180deg); }
+
+.selectMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 6px 0;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  z-index: 60;
+}
+.hoverBridge {
+  position: absolute; top: -8px; left: 0; width: 100%; height: 8px; pointer-events: none;
+}
+.selectItem {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 12px; font-size: 15px; color: #111827; cursor: pointer;
+}
+.selectItem:hover { background: #f3f4f6; }
+.selectItemDisabled { color: #9ca3af; cursor: not-allowed; }
+.soonBadge {
+  display: inline-block; padding: 2px 6px; font-size: 11px; line-height: 1;
+  border-radius: 9999px; background: #fff7ed; border: 1px solid #fdba74; color: #9a3412;
+}
+
+/* --- Maat (radio pill i.p.v. dropdown) --- */
+.segment { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  font-weight: 600;
+  font-size: 15.5px;
+  line-height: 1;
+  color: #111827;
+  -webkit-tap-highlight-color: transparent;
+}
+.option > input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.option:has(input:checked) {
+  border-color: var(--orange);
+  background: rgba(249, 115, 22, 0.06);
+  box-shadow: none; /* geen halo */
+}
+.option:has(input:checked) .dot { border-color: var(--orange); background: var(--orange); }
+.option:hover { border-color: #e5e7eb; background: #fff; }
+.option:focus-within { outline: 3px solid rgba(249,115,22,0.15); outline-offset: 2px; }
+
+/* Fieldset zonder rand */
+.group {
+  border: 0;
+  padding: 0;
+  margin: 12px 0 8px;
+  min-inline-size: 0;
+}
+.group > legend { padding: 0; margin: 0 0 8px; font-weight: 600; }
+
+
+/* Responsive */
+@media (min-width: 900px) {
+  .hero { padding: 80px 0 68px; }
+  .box  { padding: 26px 28px 28px; }
+}
